@@ -70,7 +70,7 @@ class MapView(val activity: HelloGeoActivity, val googleMap: GoogleMap) {
             val cameraPositionBuilder: CameraPosition.Builder = if (!setInitialCameraPosition) {
                 // Set the camera position with an initial default zoom level.
                 setInitialCameraPosition = true
-                CameraPosition.Builder().zoom(15f).target(position)
+                CameraPosition.Builder().zoom(18f).target(position)
             } else {
                 // Set the camera position and keep the same zoom level.
                 CameraPosition.Builder()
