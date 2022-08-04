@@ -13,7 +13,8 @@
         android:layout_marginEnd="10dp"
         android:background="@android:color/transparent"
         android:text="경계점"
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        android:gravity="center"/>
 
     <EditText
         android:id="@+id/lat"
@@ -23,7 +24,8 @@
         android:layout_marginEnd="10dp"
         android:background="@android:color/transparent"
         android:hint="위도좌표입력"
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        android:gravity="center"/>
 
     <EditText
         android:id="@+id/lon"
@@ -33,7 +35,8 @@
         android:layout_marginEnd="10dp"
         android:background="@android:color/transparent"
         android:hint="경도좌표입력"
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        android:gravity="center"/>
 
     <ImageButton
         android:id="@+id/delete_btn"
@@ -41,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginStart="10dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="5dp"
         android:background="@drawable/ic_outline_cancel_24"
         android:contentDescription="delete button" />
 
