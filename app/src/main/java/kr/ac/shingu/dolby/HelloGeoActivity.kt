@@ -17,8 +17,13 @@ package kr.ac.shingu.dolby
 
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.room.Room
+import com.google.android.gms.common.internal.RootTelemetryConfigManager
 import com.google.ar.core.Config
 import com.google.ar.core.Session
 import com.google.ar.core.exceptions.CameraNotAvailableException
@@ -79,6 +84,19 @@ class HelloGeoActivity : AppCompatActivity() {
 
     // Sets up an example renderer using our HelloGeoRenderer.
     SampleRender(view.surfaceView, renderer, assets)
+
+    val writeButton = findViewById<ImageView>(R.id.writeBtn)
+    writeButton.setOnClickListener {
+
+      val mDialogView = LayoutInflater.from(this).inflate(R.layout.custom_dialog, null)
+      val mBuilder = AlertDialog.Builder(this)
+        .setView(mDialogView)
+        .setTitle("좌표 정보")
+      mBuilder.show()
+
+    }
+
+
   }
 
   // Configure the session, setting the desired options according to your usecase.

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_margin="20dp"
+        android:hint="WGS84 좌표계를 사용합니다"
+        android:background="@android:color/transparent"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="#999999" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_height="60dp">
+
+        <Button
+            android:id="@+id/save_coordinates"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="25dp"
+            android:text="좌표 저장" />
+
+        <Button
+            android:id="@+id/resetBtn"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="20dp"
+            android:text="기록 초기화" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center"
+            android:text="경계점"
+            android:background="@android:color/transparent"/>
+
+        <EditText
+            android:id="@+id/lat"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center"
+            android:hint="위도좌표입력"
+            android:background="@android:color/transparent"/>
+
+        <EditText
+            android:id="@+id/lon"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center"
+            android:hint="위도좌표입력"
+            android:background="@android:color/transparent"/>
+
+    </LinearLayout>
+
+</LinearLayout>

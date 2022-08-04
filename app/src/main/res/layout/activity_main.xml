@@ -23,6 +23,8 @@
       android:id="@+id/surfaceview"
       android:layout_width="fill_parent"
       android:layout_height="fill_parent"
+      android:layout_alignParentStart="true"
+      android:layout_alignParentTop="true"
       android:layout_gravity="top" />
 
   <kr.ac.shingu.dolby.geospatial.helpers.MapTouchWrapper
@@ -43,10 +45,27 @@
       android:id="@+id/statusText"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_alignParentStart="true"
+      android:layout_alignParentTop="true"
+      android:layout_marginStart="-3dp"
+      android:layout_marginTop="6dp"
       android:fontFamily="monospace"
       android:minWidth="30dp"
       android:minHeight="30dp"
       android:padding="5dp"
       android:textColor="@android:color/black" />
+
+  <ImageView
+      android:id="@+id/writeBtn"
+      android:layout_width="71dp"
+      android:layout_height="67dp"
+      android:layout_alignParentTop="true"
+      android:layout_alignParentEnd="true"
+      android:layout_marginStart="20dp"
+      android:layout_marginTop="2dp"
+      android:layout_marginEnd="5dp"
+      android:layout_marginBottom="20dp"
+      android:src="@drawable/icon" />
+
 
 </RelativeLayout>
