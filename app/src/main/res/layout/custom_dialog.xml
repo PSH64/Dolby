@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -9,8 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_margin="20dp"
-        android:hint="WGS84 좌표계를 사용합니다"
-        android:background="@android:color/transparent"/>
+        android:background="@android:color/transparent"
+        android:hint="WGS84 좌표계를 사용합니다" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,8 +20,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_marginTop="20dp"
-        android:layout_height="60dp">
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp">
 
         <Button
             android:id="@+id/save_coordinates"
@@ -42,37 +41,19 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="180dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:gravity="center"
-            android:text="경계점"
-            android:background="@android:color/transparent"/>
-
-        <EditText
-            android:id="@+id/lat"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:gravity="center"
-            android:hint="위도좌표입력"
-            android:background="@android:color/transparent"/>
-
-        <EditText
-            android:id="@+id/lon"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:gravity="center"
-            android:hint="위도좌표입력"
-            android:background="@android:color/transparent"/>
-
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/marker_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="닫기" />
 
 </LinearLayout>
