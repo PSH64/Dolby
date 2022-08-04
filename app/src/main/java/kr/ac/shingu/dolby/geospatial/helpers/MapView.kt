@@ -70,7 +70,7 @@ class MapView(val activity: HelloGeoActivity, val googleMap: GoogleMap) {
             val cameraPositionBuilder: CameraPosition.Builder = if (!setInitialCameraPosition) {
                 // Set the camera position with an initial default zoom level.
                 setInitialCameraPosition = true
-                CameraPosition.Builder().zoom(18f).target(position)
+                CameraPosition.Builder().zoom(15f).target(position)
             } else {
                 // Set the camera position and keep the same zoom level.
                 CameraPosition.Builder()
@@ -106,7 +106,7 @@ class MapView(val activity: HelloGeoActivity, val googleMap: GoogleMap) {
             .anchor(0.5f, 0.5f)
             .flat(true)
             .visible(true)
-            .icon(BitmapDescriptorFactory.fromBitmap(createColoredMarkerBitmap(color)))
+            .icon(BitmapDescriptorFactory.fromBitmap(createColoredMarkerBitmapp(color)))
         return googleMap.addMarker(markersOptions)!!
     }
 
@@ -117,6 +117,21 @@ class MapView(val activity: HelloGeoActivity, val googleMap: GoogleMap) {
             BitmapFactory.decodeResource(
                 activity.resources,
                 R.drawable.ic_navigation_white_48dp,
+                opt
+            )
+        val p = Paint()
+        p.colorFilter = LightingColorFilter(color,  /* add= */1)
+        val canvas = Canvas(navigationIcon)
+        canvas.drawBitmap(navigationIcon,  /* left= */0f,  /* top= */0f, p)
+        return navigationIcon
+    }
+    private fun createColoredMarkerBitmapp(@ColorInt color: Int): Bitmap {
+        val opt = BitmapFactory.Options()
+        opt.inMutable = true
+        val navigationIcon =
+            BitmapFactory.decodeResource(
+                activity.resources,
+                R.drawable.ic_navigation_white_48dpp,
                 opt
             )
         val p = Paint()
