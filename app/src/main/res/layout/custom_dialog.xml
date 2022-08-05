@@ -24,7 +24,7 @@
         android:layout_marginTop="20dp">
 
         <Button
-            android:id="@+id/save_coordinates"
+            android:id="@+id/save_button"
             android:layout_width="120dp"
             android:layout_height="60dp"
             android:layout_marginLeft="25dp"

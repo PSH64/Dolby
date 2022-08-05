@@ -5,23 +5,30 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kr.ac.shingu.dolby.databinding.RoomDbBySeongyoolBinding
 
-class ListRecyclerAdapter(val ListSeong:List<ListSeong<Any?>>) : RecyclerView.Adapter<ListRecyclerAdapter.Holder>() {
+class ListRecyclerAdapter(private val memoList: List<RoomMemo>) :
+    RecyclerView.Adapter<ListRecyclerAdapter.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        val binding = ItemRecyclerBinding.inflate(
-            LayoutInflater.from(parent.context),parent,false)
+        val binding = RoomDbBySeongyoolBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false
+        )
         return Holder(binding)
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.setMemo(ListSeong.get(position))
+        holder.setMemo(memoList[position])
     }
 
-    override fun getItemCount(): ListSeong.size
-}
-    class Holder(binding: RoomDbBySeongyoolBinding) : RecyclerView.ViewHolder(binding.root) {
+    override fun getItemCount(): Int = memoList.size
 
-        fun setMemo(memo:ListSeong) {
+    class Holder(private val binding: RoomDbBySeongyoolBinding) : RecyclerView.ViewHolder(binding.root) {
 
+        fun setMemo(roomMemo: RoomMemo) {
+            with(binding) {
+                textNumber.text = "${roomMemo.no}"
+                latValue.text = roomMemo.content.toString()
+                lonValue.text = roomMemo.content2.toString()
+            }
+        }
     }
 }

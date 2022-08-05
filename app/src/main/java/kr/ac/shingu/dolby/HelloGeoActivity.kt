@@ -17,14 +17,11 @@ package kr.ac.shingu.dolby
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.gms.common.internal.RootTelemetryConfigManager
 import com.google.ar.core.Config
 import com.google.ar.core.Session
 import com.google.ar.core.exceptions.CameraNotAvailableException
@@ -32,13 +29,19 @@ import com.google.ar.core.exceptions.UnavailableApkTooOldException
 import com.google.ar.core.exceptions.UnavailableDeviceNotCompatibleException
 import com.google.ar.core.exceptions.UnavailableSdkTooOldException
 import com.google.ar.core.exceptions.UnavailableUserDeclinedInstallationException
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kr.ac.shingu.dolby.databinding.ActivityMainBinding
+import kr.ac.shingu.dolby.databinding.CustomDialogBinding
 import kr.ac.shingu.dolby.geospatial.helpers.ARCoreSessionLifecycleHelper
 import kr.ac.shingu.dolby.geospatial.helpers.GeoPermissionsHelper
 import kr.ac.shingu.dolby.geospatial.helpers.HelloGeoView
 import kr.ac.shingu.dolby.util.helper.FullScreenHelper
 import kr.ac.shingu.dolby.util.render.SampleRender
 
-class HelloGeoActivity : AppCompatActivity() {
+class HelloGeoActivity : AppCompatActivity(), SaveMarkerInterface {
+
     companion object {
         private const val TAG = "HelloGeoActivity"
     }
@@ -47,8 +50,14 @@ class HelloGeoActivity : AppCompatActivity() {
     lateinit var view: HelloGeoView
     lateinit var renderer: HelloGeoRenderer
 
+    val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+    lateinit var db: DolbyRoom
+    var markerList = arrayListOf<MarkerETY>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(binding.root)
+        db = DolbyRoom.getInstance(this)
 
         // Setup ARCore session lifecycle helper and configuration.
         arCoreSessionHelper = ARCoreSessionLifecycleHelper(this)
@@ -88,25 +97,28 @@ class HelloGeoActivity : AppCompatActivity() {
 
         val writeButton = findViewById<ImageView>(R.id.writeBtn)
         writeButton.setOnClickListener {
-
-            val mDialogView = LayoutInflater.from(this).inflate(R.layout.custom_dialog, null)
-
-            val markerRecycler = mDialogView.findViewById<RecyclerView>(R.id.marker_recycler)
-
-            val test1 = MarkerDTO(name = "test1", latitude = 37.4806, longitude = 127.1484)
-            val test2 = MarkerDTO(name = "test2", latitude = 37.4807, longitude = 127.1484)
-            val test3 = MarkerDTO(name = "test3", latitude = 37.4808, longitude = 127.1484)
-            val testList = arrayListOf<MarkerDTO>(test1, test2, test3)
-            markerRecycler.adapter = MarkerListAdapter(testList)
-            markerRecycler.layoutManager = LinearLayoutManager(this)
-
+            val dialogBinding = CustomDialogBinding.inflate(layoutInflater)
             val mBuilder = AlertDialog.Builder(this)
-                .setView(mDialogView)
+                .setView(dialogBinding.root)
                 .setTitle("좌표 정보")
-            mBuilder.show()
+            val dialog = mBuilder.create()
 
+            with(dialogBinding) {
+                markerRecycler.adapter = MarkerListAdapter(markerList, this@HelloGeoActivity)
+                markerRecycler.layoutManager = LinearLayoutManager(this@HelloGeoActivity)
+                saveButton.setOnClickListener {
+                    dialog.dismiss()
+                    CoroutineScope(Dispatchers.IO).launch {
+                        db.markerDAO.insertAll(markerList.toTypedArray())
+                    }
+                }
+            }
+            mBuilder.show()
         }
 
+    }
+    override fun updateMarker(markerList: ArrayList<MarkerETY>) {
+        this.markerList = markerList
     }
 
     // Configure the session, setting the desired options according to your usecase.
@@ -119,6 +131,8 @@ class HelloGeoActivity : AppCompatActivity() {
             }
         )
     }
+
+
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -146,4 +160,5 @@ class HelloGeoActivity : AppCompatActivity() {
         super.onWindowFocusChanged(hasFocus)
         FullScreenHelper.setFullScreenOnWindowFocusChanged(this, hasFocus)
     }
+
 }

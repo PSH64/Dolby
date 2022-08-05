@@ -8,14 +8,19 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import kr.ac.shingu.dolby.databinding.CustomDialogBinding
+import kr.ac.shingu.dolby.databinding.MarkerViewHolderBinding
 
-class MarkerListAdapter(private val markerList: ArrayList<MarkerDTO>) :
+class MarkerListAdapter(
+    private val markerList: ArrayList<MarkerETY>,
+    private val listener: SaveMarkerInterface
+) :
     RecyclerView.Adapter<MarkerListAdapter.LatLngViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LatLngViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.marker_view_holder, parent, false)
-        return LatLngViewHolder(view)
+        val binding = MarkerViewHolderBinding
+            .inflate(LayoutInflater.from(parent.context), parent, false)
+        return LatLngViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: LatLngViewHolder, position: Int) {
@@ -24,22 +29,22 @@ class MarkerListAdapter(private val markerList: ArrayList<MarkerDTO>) :
 
     override fun getItemCount(): Int = markerList.size
 
-    inner class LatLngViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val nameView = view.findViewById<TextView>(R.id.name)
-        private val latEditView = view.findViewById<EditText>(R.id.lat)
-        private val lonEditView = view.findViewById<EditText>(R.id.lon)
-        private val deleteButton = view.findViewById<ImageButton>(R.id.delete_btn)
-
+    inner class LatLngViewHolder(private val binding: MarkerViewHolderBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
-        fun bind(dto: MarkerDTO, position: Int) {
+        fun bind(dto: MarkerETY, position: Int) {
             val nameNumber = position + 1
-            nameView.text = "marker$nameNumber"
-            latEditView.setText(dto.latitude.toString())
-            lonEditView.setText(dto.longitude.toString())
-            deleteButton.setOnClickListener {
-                markerList.removeAt(position)
-                notifyDataSetChanged()
+            with(binding) {
+                name.text = "marker$nameNumber"
+                lat.setText(dto.latitude.toString())
+                lon.setText(dto.longitude.toString())
+                deleteBtn.setOnClickListener {
+                    markerList.removeAt(position)
+                    listener.updateMarker(markerList)
+                    notifyDataSetChanged()
+                }
             }
+
         }
 
     }
