@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
    Copyright 2022 Google LLC
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,7 +17,7 @@
 <!--    ACCURACY: %.2fm-->
 <!--    \n\t\t\tACCURACY: %.1f˚-->
 <resources>
-  <string translatable="false" name="app_name">Hello Geo</string>
-  <string translatable="false" name="geospatial_pose">LAT/LNG: %.6f˚, %.6f˚\nALTITUDE: %.2fm\n\t\tHEADING: %.1f˚</string>
-  <string name="earth_state">EarthState: %1$s\nTrackingState: %2$s\n%3$s</string>
+    <string name="app_name" translatable="false">Hello Geo</string>
+    <string name="geospatial_pose" translatable="false">LAT/LNG: %.6f˚, %.6f˚\nALTITUDE: %.2fm\n\t\tHEADING: %.1f˚</string>
+    <string name="earth_state">EarthState: %1$s\nTrackingState: %2$s\n%3$s</string>
 </resources>
