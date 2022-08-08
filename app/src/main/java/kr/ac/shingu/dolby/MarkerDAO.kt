@@ -12,7 +12,7 @@ interface MarkerDAO {
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun update(ety: MarkerETY)
 
-    @Query("select * from room_memo")
+    @Query("select * from tblMarker")
     fun selectAll(): List<MarkerETY>
 
     @Delete
